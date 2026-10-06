@@ -1,0 +1,1025 @@
+openapi: 3.1.0
+info:
+  title: StandingsOS API
+  description: 'Competition intelligence API: schedules are operational state, results
+    are facts, standings and analytics are derived, and optional AI briefs are grounded
+    in evidence.'
+  version: 2.2.1
+paths:
+  /health:
+    get:
+      tags:
+      - meta
+      summary: Health
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /ready:
+    get:
+      tags:
+      - meta
+      summary: Readiness
+      operationId: readiness_ready_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/v1/competitions:
+    get:
+      tags:
+      - competitions
+      summary: List Competitions
+      operationId: list_competitions_api_v1_competitions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CompetitionOut'
+                type: array
+                title: Response List Competitions Api V1 Competitions Get
+    post:
+      tags:
+      - competitions
+      summary: Create Competition
+      operationId: create_competition_api_v1_competitions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompetitionCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/competitions/{competition_id}/seasons:
+    get:
+      tags:
+      - seasons
+      summary: List Seasons
+      operationId: list_seasons_api_v1_competitions__competition_id__seasons_get
+      parameters:
+      - name: competition_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Competition Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SeasonOut'
+                title: Response List Seasons Api V1 Competitions  Competition Id  Seasons
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - seasons
+      summary: Create Season
+      operationId: create_season_api_v1_competitions__competition_id__seasons_post
+      parameters:
+      - name: competition_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Competition Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeasonCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/teams:
+    get:
+      tags:
+      - teams
+      summary: List Season Teams
+      operationId: list_season_teams_api_v1_seasons__season_id__teams_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamOut'
+                title: Response List Season Teams Api V1 Seasons  Season Id  Teams
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - teams
+      summary: Add Team To Season
+      operationId: add_team_to_season_api_v1_seasons__season_id__teams_post
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/fixtures:
+    get:
+      tags:
+      - fixtures
+      summary: List Fixtures
+      operationId: list_fixtures_api_v1_seasons__season_id__fixtures_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FixtureOut'
+                title: Response List Fixtures Api V1 Seasons  Season Id  Fixtures
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - fixtures
+      summary: Create Fixture
+      operationId: create_fixture_api_v1_seasons__season_id__fixtures_post
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FixtureCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FixtureOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/fixtures/{fixture_id}/result:
+    post:
+      tags:
+      - results
+      summary: Record Result
+      operationId: record_result_api_v1_fixtures__fixture_id__result_post
+      parameters:
+      - name: fixture_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Fixture Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResultCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FixtureOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - results
+      summary: Remove Result
+      operationId: remove_result_api_v1_fixtures__fixture_id__result_delete
+      parameters:
+      - name: fixture_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Fixture Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/data-readiness:
+    get:
+      tags:
+      - data
+      summary: Get Data Readiness
+      operationId: get_data_readiness_api_v1_seasons__season_id__data_readiness_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataReadinessOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/standings:
+    get:
+      tags:
+      - intelligence
+      summary: Get Standings
+      operationId: get_standings_api_v1_seasons__season_id__standings_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StandingOut'
+                title: Response Get Standings Api V1 Seasons  Season Id  Standings
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/analytics:
+    get:
+      tags:
+      - intelligence
+      summary: Get Analytics
+      operationId: get_analytics_api_v1_seasons__season_id__analytics_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/forecasts:
+    get:
+      tags:
+      - intelligence
+      summary: Get Forecasts
+      operationId: get_forecasts_api_v1_seasons__season_id__forecasts_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ForecastOut'
+                title: Response Get Forecasts Api V1 Seasons  Season Id  Forecasts
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/ai-brief:
+    get:
+      tags:
+      - ai
+      summary: Get Ai Brief
+      operationId: get_ai_brief_api_v1_seasons__season_id__ai_brief_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBriefOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/export.csv:
+    get:
+      tags:
+      - data
+      summary: Export Season Csv
+      operationId: export_season_csv_api_v1_seasons__season_id__export_csv_get
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seasons/{season_id}/import.csv:
+    post:
+      tags:
+      - data
+      summary: Import Season Csv
+      operationId: import_season_csv_api_v1_seasons__season_id__import_csv_post
+      parameters:
+      - name: season_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Season Id
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_import_season_csv_api_v1_seasons__season_id__import_csv_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportSummary'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AIBriefOut:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        model:
+          type: string
+          title: Model
+        generated_at:
+          type: string
+          format: date-time
+          title: Generated At
+        summary:
+          type: string
+          title: Summary
+        evidence:
+          additionalProperties: true
+          type: object
+          title: Evidence
+      type: object
+      required:
+      - provider
+      - model
+      - generated_at
+      - summary
+      - evidence
+      title: AIBriefOut
+    AnalyticsOut:
+      properties:
+        season_id:
+          type: integer
+          title: Season Id
+        fixtures_total:
+          type: integer
+          title: Fixtures Total
+        fixtures_completed:
+          type: integer
+          title: Fixtures Completed
+        completion_rate:
+          type: number
+          title: Completion Rate
+        goals_total:
+          type: integer
+          title: Goals Total
+        average_goals_per_match:
+          type: number
+          title: Average Goals Per Match
+        home_win_rate:
+          type: number
+          title: Home Win Rate
+        draw_rate:
+          type: number
+          title: Draw Rate
+        away_win_rate:
+          type: number
+          title: Away Win Rate
+        leader:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Leader
+        strongest_attack:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Strongest Attack
+        strongest_defense:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Strongest Defense
+      type: object
+      required:
+      - season_id
+      - fixtures_total
+      - fixtures_completed
+      - completion_rate
+      - goals_total
+      - average_goals_per_match
+      - home_win_rate
+      - draw_rate
+      - away_win_rate
+      - leader
+      - strongest_attack
+      - strongest_defense
+      title: AnalyticsOut
+    Body_import_season_csv_api_v1_seasons__season_id__import_csv_post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_import_season_csv_api_v1_seasons__season_id__import_csv_post
+    CompetitionCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          minLength: 2
+          title: Name
+        sport:
+          type: string
+          maxLength: 40
+          minLength: 2
+          title: Sport
+          default: football
+        country:
+          anyOf:
+          - type: string
+            maxLength: 80
+          - type: 'null'
+          title: Country
+      type: object
+      required:
+      - name
+      title: CompetitionCreate
+    CompetitionOut:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        sport:
+          type: string
+          title: Sport
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+      type: object
+      required:
+      - id
+      - name
+      - sport
+      - country
+      title: CompetitionOut
+    DataReadinessOut:
+      properties:
+        season_id:
+          type: integer
+          title: Season Id
+        score:
+          type: number
+          title: Score
+        status:
+          type: string
+          title: Status
+        policy_version:
+          type: string
+          title: Policy Version
+        checked_at:
+          type: string
+          format: date-time
+          title: Checked At
+        dimensions:
+          additionalProperties:
+            type: number
+          type: object
+          title: Dimensions
+        blockers:
+          items:
+            type: string
+          type: array
+          title: Blockers
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+      type: object
+      required:
+      - season_id
+      - score
+      - status
+      - policy_version
+      - checked_at
+      - dimensions
+      - blockers
+      - warnings
+      title: DataReadinessOut
+    FixtureCreate:
+      properties:
+        home_team_id:
+          type: integer
+          title: Home Team Id
+        away_team_id:
+          type: integer
+          title: Away Team Id
+        scheduled_at:
+          type: string
+          format: date-time
+          title: Scheduled At
+      type: object
+      required:
+      - home_team_id
+      - away_team_id
+      - scheduled_at
+      title: FixtureCreate
+    FixtureOut:
+      properties:
+        id:
+          type: integer
+          title: Id
+        season_id:
+          type: integer
+          title: Season Id
+        home_team_id:
+          type: integer
+          title: Home Team Id
+        home_team:
+          type: string
+          title: Home Team
+        away_team_id:
+          type: integer
+          title: Away Team Id
+        away_team:
+          type: string
+          title: Away Team
+        scheduled_at:
+          type: string
+          format: date-time
+          title: Scheduled At
+        status:
+          type: string
+          title: Status
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/ResultOut'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - season_id
+      - home_team_id
+      - home_team
+      - away_team_id
+      - away_team
+      - scheduled_at
+      - status
+      - result
+      title: FixtureOut
+    ForecastOut:
+      properties:
+        fixture_id:
+          type: integer
+          title: Fixture Id
+        home_team:
+          type: string
+          title: Home Team
+        away_team:
+          type: string
+          title: Away Team
+        home_win_probability:
+          type: number
+          title: Home Win Probability
+        draw_probability:
+          type: number
+          title: Draw Probability
+        away_win_probability:
+          type: number
+          title: Away Win Probability
+        model:
+          type: string
+          title: Model
+        explanation:
+          type: string
+          title: Explanation
+      type: object
+      required:
+      - fixture_id
+      - home_team
+      - away_team
+      - home_win_probability
+      - draw_probability
+      - away_win_probability
+      - model
+      - explanation
+      title: ForecastOut
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ImportSummary:
+      properties:
+        rows_processed:
+          type: integer
+          title: Rows Processed
+        teams_created:
+          type: integer
+          title: Teams Created
+        fixtures_created:
+          type: integer
+          title: Fixtures Created
+        results_recorded:
+          type: integer
+          title: Results Recorded
+      type: object
+      required:
+      - rows_processed
+      - teams_created
+      - fixtures_created
+      - results_recorded
+      title: ImportSummary
+    ResultCreate:
+      properties:
+        home_goals:
+          type: integer
+          maximum: 99.0
+          minimum: 0.0
+          title: Home Goals
+        away_goals:
+          type: integer
+          maximum: 99.0
+          minimum: 0.0
+          title: Away Goals
+        source:
+          type: string
+          maxLength: 30
+          title: Source
+          default: manual
+      type: object
+      required:
+      - home_goals
+      - away_goals
+      title: ResultCreate
+    ResultOut:
+      properties:
+        id:
+          type: integer
+          title: Id
+        home_goals:
+          type: integer
+          title: Home Goals
+        away_goals:
+          type: integer
+          title: Away Goals
+        source:
+          type: string
+          title: Source
+        recorded_at:
+          type: string
+          format: date-time
+          title: Recorded At
+      type: object
+      required:
+      - id
+      - home_goals
+      - away_goals
+      - source
+      - recorded_at
+      title: ResultOut
+    SeasonCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 60
+          minLength: 1
+          title: Name
+        status:
+          type: string
+          pattern: ^(planned|active|completed)$
+          title: Status
+          default: active
+        starts_on:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Starts On
+        ends_on:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Ends On
+      type: object
+      required:
+      - name
+      title: SeasonCreate
+    SeasonOut:
+      properties:
+        id:
+          type: integer
+          title: Id
+        competition_id:
+          type: integer
+          title: Competition Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        starts_on:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Starts On
+        ends_on:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Ends On
+      type: object
+      required:
+      - id
+      - competition_id
+      - name
+      - status
+      - starts_on
+      - ends_on
+      title: SeasonOut
+    StandingOut:
+      properties:
+        position:
+          type: integer
+          title: Position
+        team:
+          type: string
+          title: Team
+        played:
+          type: integer
+          title: Played
+        won:
+          type: integer
+          title: Won
+        drawn:
+          type: integer
+          title: Drawn
+        lost:
+          type: integer
+          title: Lost
+        goals_for:
+          type: integer
+          title: Goals For
+        goals_against:
+          type: integer
+          title: Goals Against
+        goal_difference:
+          type: integer
+          title: Goal Difference
+        points:
+          type: integer
+          title: Points
+      type: object
+      required:
+      - position
+      - team
+      - played
+      - won
+      - drawn
+      - lost
+      - goals_for
+      - goals_against
+      - goal_difference
+      - points
+      title: StandingOut
+    TeamCreate:
+      properties:
+        name:
+          type: string
+          maxLength: 80
+          minLength: 1
+          title: Name
+      type: object
+      required:
+      - name
+      title: TeamCreate
+    TeamOut:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - id
+      - name
+      title: TeamOut
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -1,0 +1,17 @@
+contract_version: 1.0
+product: season-fixtures
+owner: competition-operations
+purpose: operational schedule describing expected matches
+primary_key: fixture_id
+fields:
+  fixture_id: {type: integer, required: true}
+  season_id: {type: integer, required: true}
+  home_team_id: {type: integer, required: true}
+  away_team_id: {type: integer, required: true}
+  scheduled_at: {type: datetime, required: true}
+rules:
+  - home_team_id must differ from away_team_id
+  - both teams must be enrolled in the season
+ai_use:
+  allowed: true
+  meaning: operational context; not evidence that a match has been completed

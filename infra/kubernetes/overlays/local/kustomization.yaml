@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: standingsos
+resources:
+  - ../../base
+  - postgres.yaml
+secretGenerator:
+  - name: standingsos-secrets
+    literals:
+      - POSTGRES_DB=standingsos
+      - POSTGRES_USER=standingsos
+      - POSTGRES_PASSWORD=standingsos-local
+      - DATABASE_URL=postgresql+psycopg://standingsos:standingsos-local@postgres:5432/standingsos
+images:
+  - name: ghcr.io/cssaritama/standingsos-api
+    newName: standingsos-api
+    newTag: local
+  - name: ghcr.io/cssaritama/standingsos-web
+    newName: standingsos-web
+    newTag: local
+patches:
+  - path: backend-local-patch.yaml
+  - path: frontend-local-patch.yaml

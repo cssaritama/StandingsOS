@@ -1,0 +1,25 @@
+semantic_version: 1.0
+metrics:
+  points:
+    definition: competition points derived from completed match results
+    formula: wins * 3 + draws
+    grain: team_per_season
+    source: completed results
+  goal_difference:
+    definition: goals scored minus goals conceded for completed results
+    formula: goals_for - goals_against
+    grain: team_per_season
+    source: completed results
+  completion_rate:
+    definition: percentage of scheduled fixtures that have an authoritative result
+    formula: completed_fixtures / total_fixtures * 100
+    grain: season
+    source: fixtures + results
+  home_win_rate:
+    definition: percentage of completed matches won by the home team
+    grain: season
+    source: completed results
+  average_goals_per_match:
+    definition: total goals divided by completed matches
+    grain: season
+    source: completed results

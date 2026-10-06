@@ -1,0 +1,13 @@
+terms:
+  fixture:
+    definition: a scheduled match; operational state, not proof the match occurred
+  result:
+    definition: the authoritative completed-match fact for a fixture
+  standings:
+    definition: deterministic derived state calculated from authoritative results
+  forecast:
+    definition: probabilistic decision aid calculated from historical results; not a fact
+  evidence_pack:
+    definition: bounded machine-readable context supplied to the optional AI briefing layer
+  ai_ready:
+    definition: data state that satisfies the versioned readiness policy for downstream AI consumption

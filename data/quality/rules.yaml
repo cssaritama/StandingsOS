@@ -1,0 +1,29 @@
+policy_version: ai-readiness-v1
+ready_threshold: 85
+conditional_threshold: 70
+dimensions:
+  schema_compliance:
+    weight: 0.20
+    target: 100
+  referential_integrity:
+    weight: 0.20
+    target: 100
+  completeness:
+    weight: 0.20
+    target: 100
+  provenance_coverage:
+    weight: 0.15
+    minimum_for_ai: 90
+  analytical_coverage:
+    weight: 0.15
+    warning_below: 60
+  semantic_coverage:
+    weight: 0.10
+    target: 100
+hard_blockers:
+  - fewer than two teams
+  - no fixtures
+  - no completed results
+  - referential integrity below 100
+  - schema compliance below 100
+  - provenance coverage below 90 when results exist

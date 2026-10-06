@@ -1,0 +1,43 @@
+contract_version: 1.0
+product: season-results
+owner: competition-operations
+purpose: authoritative completed-match facts used for standings, analytics, forecasts and AI evidence
+source_of_truth: results
+primary_key: fixture_id
+fields:
+  fixture_id:
+    type: integer
+    required: true
+  season_id:
+    type: integer
+    required: true
+  scheduled_at:
+    type: datetime
+    required: true
+  home_team:
+    type: string
+    required: true
+  away_team:
+    type: string
+    required: true
+  home_goals:
+    type: integer
+    required: true
+    constraints: [">= 0"]
+  away_goals:
+    type: integer
+    required: true
+    constraints: [">= 0"]
+  source:
+    type: string
+    required: true
+    meaning: provenance label for the recorded result
+quality_slo:
+  referential_integrity: 100
+  provenance_coverage: 90
+  schema_compliance: 100
+ai_use:
+  allowed: true
+  conditions:
+    - data-readiness gate must be ready
+    - downstream AI may narrate evidence but may not recalculate standings
