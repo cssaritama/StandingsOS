@@ -1,5 +1,8 @@
 from datetime import datetime, timezone
 from types import SimpleNamespace
+import pytest
+
+pytest.importorskip("sqlalchemy")
 
 from app.readiness import assess_season_readiness
 

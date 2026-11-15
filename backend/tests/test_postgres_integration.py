@@ -1,6 +1,8 @@
 import os
 
 import pytest
+
+pytest.importorskip("sqlalchemy")
 from sqlalchemy import select
 
 pytestmark = pytest.mark.skipif(

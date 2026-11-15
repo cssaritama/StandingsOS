@@ -1,35 +1,82 @@
-# AGENTS.md
+# Working in StandingsOS — Systems Studio Competition Intelligence Platform
 
-Repository conventions for coding agents and contributors.
+Read `README.md` first. Follow the active specifications in `specs/`.
 
-## Product rule
+## Founding Life Mission of Systems Studio
 
-StandingsOS separates planned fixtures from factual results. Standings, analytics and forecasts are derived from results. AI may explain a bounded evidence pack but must not become the source of truth.
+> *"Understand, identify, and detect human and institutional behavioral patterns across markets, organizations, sports, and collective consciousness—and turn those asymmetric insights into decisive action."*
 
-**Never introduce a mutable stored standings table.**
+---
 
-## Boundaries
+## 1. Front-Page Context Firewall Table
 
-- `backend/app/standings.py`: pure standings rules.
-- `backend/app/analytics.py`: deterministic descriptive metrics.
-- `backend/app/forecasting.py`: transparent forecast baseline.
-- `backend/app/ai.py`: evidence packaging and optional LLM adapter.
-- `backend/app/models.py`: persistence model.
-- `backend/app/main.py`: HTTP and orchestration adapter.
-- `frontend/src/api/client.js`: frontend network boundary.
-- `infra/kubernetes/`: runtime portability layer.
+To eliminate context contamination and maintain zero token waste, all agents operate under the **Context Firewall**:
 
-## Development rules
+| Operation Category | Permitted Files / Directories | Explicit Restrictions & Firewalls |
+|---|---|---|
+| **WHERE TO READ ON STARTUP**<br/>*(Max 4 Files Strictly)* | 1. `AGENTS.md`<br/>2. `README.md`<br/>3. `openapi.yaml`<br/>4. Active spec in `specs/` | **NEVER** load full repository histories, unbounded logs, or unindexed markdown on startup. |
+| **WHERE TO WRITE IDEAS & REFS**<br/>*(Local First, Global by Exception)* | **Local Project Repository (`StandingsOS`):**<br/>- Competition rules, forecasting ideas stay in `IDEAS.md`<br/>- Benchmark models, API references stay in `REFERENCES.md`<br/>*Classified by type:*<br/>`[SIGNAL_OR_MODEL]`, `[ARCHITECTURE_OR_PERF]`,<br/>`[PRODUCT_OR_UX]`, `[COMMERCIAL_OR_MONETIZATION]`<br/><br/>**Global by Exception (`portfolio-ops`):**<br/>- Tagged `[CROSS_PORTFOLIO_HQ]` in `portfolio-ops/IDEAS.md` or `REFERENCES.md` only after verifying zero duplicates.<br/>- If offline/detached, stage in local `## Outbox: Pending HQ Sync`. | **NEVER** dump match-level raw event fixtures into `portfolio-ops` HQ files.<br/>**NEVER** create duplicate entries without scanning existing IDs. |
+| **WHERE NOT TO READ**<br/>*(Context Contamination Firewall)* | **Strictly Forbidden:**<br/>`archive/`, `past_version/`, full raw match data dumps (`data/`), or unrelated domain sibling repositories during routine execution. | Loading archived or inactive files causes prompt drift, hallucination, and massive token exhaustion. |
 
-1. Keep product claims aligned with implemented behavior.
-2. Add tests when domain rules change.
-3. Keep deterministic calculations outside the LLM.
-4. Do not hardcode production credentials.
-5. Keep `/health` independent from external dependencies.
-6. Keep `/ready` representative of database availability.
-7. Keep local infrastructure clearly distinguished from production reference architecture.
-8. Do not claim cloud deployment that has not been validated.
+---
 
-## Specification-driven changes
+## 2. Proactive Strategic Co-Pilot & 6-Validator Decision Protocol
 
-For material features, create or update a file under `specs/` before implementation. The spec should define the problem, interfaces, constraints, acceptance criteria, non-goals and verification plan. Coding agents must treat the spec and tests as the contract, not infer product behavior from implementation alone.
+1. **Never a Passive Interrogator:** The system already maintains repository state (`README.md`, `specs/`). Agents must NEVER dump blank questionnaires or leave decision-making open-ended to Carlos.
+2. **Proactive Option Synthesis:** When an architectural choice, standings rule, or API contract trade-off arises:
+   - Synthesize current context automatically from specs.
+   - Run the **6 Structural Executive Validators (`SVED Protocol`)** defined in `portfolio-ops/architecture/STRUCTURAL_DECISION_AND_EXECUTION_PROTOCOL.md`.
+   - Present 2–3 concrete options scored by **`ITR` (Investment, Time, Return)**.
+   - Proactively recommend **The Optimal Path & Why**, accompanied by an immediate physical action ready for one-word ("Sí") executive approval.
+3. **The Flashlight Rule:** Internal decision engines utilize structural models (Lacan R-S-I, Peirce's Quadrants, 11-Step Lifecycle) to maintain rigorous analytical clarity, while all external deliverables, code, and communications remain in crisp, minimalist, high-impact C-Suite American English with 10-word inline micro-bridges.
+
+---
+
+## 3. Four-Layer Agentic Architecture (Grigorev + gstack Standard)
+
+- **Layer 1 (Entry Map):** Concise root entry maps in `AGENTS.md` (<60 lines or tightly modular). Provider adapters (`CLAUDE.md`, `GEMINI.md`) contain single-line pointers (`@AGENTS.md`).
+- **Layer 2 (Empirical Skills):** Reusable workflows in `.agents/skills/<name>/SKILL.md` (mirrored in `skills/`), captured empirically only after executing, testing, and refining a real task.
+- **Layer 3 (3-Role Fresh-Session Execution Loop):**
+  - **Task #1 Baseline Rule:** The first backlog task of any new project is always an empty project skeleton with 1 passing test.
+  - **PM Role:** Grooms tasks with clear `Goal`, binary `Acceptance Criteria`, `Out of Scope` linked to future task IDs, and `Constraints`.
+  - **Engineer Role:** Implements code and runs tests without closing the task prematurely.
+  - **Fresh-Session QA Role:** Executes in a clean session unbiased by implementation context; verifies running code and tests; outputs `## QA: PASS` or `## QA: FAIL`.
+  - **Checkable Stop Conditions & Worktrees:** Loops enforce binary machine-checkable criteria. Concurrent work tracks use isolated `git worktree` directories.
+  - **"Fix the Documents, Not Only the Code":** Every human correction triggers an immediate update to the governing standard/specification upon committing.
+- **Layer 4 (MCP Governance):** Load only domain-required MCP servers; default to read-only mode; strictly forbid autonomous execution of destructive commands (`rm -rf`, `force push`, DB drops, unreviewed cloud provisioning).
+
+---
+
+## 4. 3-Tier Agentic Governance Authority Matrix
+
+- **Tier A (Autonomous Execution):** Local backend/frontend authoring, standings calculation, refactoring, linting, running unit tests (`pytest`). Autonomous execution without interrupting the owner for routine reversible steps.
+- **Tier B (Shadow-Mode & Empirical Receipt Gate):** OpenAPI contract modifications, schema migrations, forecasting model changes. Requires immutable empirical proof (SHA-256 hash, test suite execution logs, contract validation).
+- **Tier C (Human-in-the-Loop Gate):** Public deployment, production release, licensing changes, external publication, or capital spend (>0 EUR). Strict signed authorization from Carlos Saritama required.
+
+---
+
+## 5. Master Single-Door Routing to Systems Studio HQ
+
+Any universal engineering standard, C-Suite ontology update, or cross-project idea routes to Systems Studio HQ (`portfolio-ops`):
+- Cross-portfolio ideas → `portfolio-ops/IDEAS.md` (tagged `[CROSS_PORTFOLIO_HQ]`)
+- Shared engineering baselines → `portfolio-ops/architecture/SHARED_RULES_CANDIDATE.md`
+- Reusable agent roles & skills → `portfolio-ops/agents/AGENT_ROLES_AND_SKILLS_CATALOGUE.md` or `.agents/skills/`
+- External references → `portfolio-ops/REFERENCES.md`
+
+---
+
+## 6. Operating Rules & Guardrails
+
+- **Core Product Invariant:** StandingsOS separates planned fixtures from factual results. Standings, analytics and forecasts are derived from results. **Never introduce a mutable stored standings table.**
+- **Zero-Bluff Context Honesty:** If any agent lacks context, has not read a required file, encounters an unindexed dependency, or hits a memory/context boundary, it MUST state that gap directly in sentence 1 of its response rather than guessing, bluffing, or wasting Carlos's time. Radical transparency is absolute.
+- **Zero AI Footprint:** Strictly forbid any AI attribution signatures (`Co-authored-by:`, `Generated with...`). All commits and code authored by `Carlos Saritama <cssaritama@gmail.com>`.
+- **Strict Verifiability:** Nothing is claimed done without running observable checks (`pytest`).
+- **Rule #10 (Mandatory Backlog Auto-Registration & Cross-Repo Sync):** Log approved features and improvements with sequential IDs and update `specs/` upon completion.
+- **Rule #11 (CI Workflow Parity & Remote Run Verification):** Verify CI environment parity and inspect remote run status when CLI access is available.
+- **Rule #12 (Dimensional Invariance, Anti-Tautology & Finite-Sample Statistical Rigor):**
+  - Never divide dimensionless Z-scores by unnormalized currency ATR.
+  - Never enforce risk-reward gates via tautological target formulas (`take_profit = entry + 2.6 * risk`).
+  - Use Student's $t$ distribution for finite-sample tests ($n < 30$), enforce unconditional bootstrap CI lower-bound checks (`ci_lower <= 0.0`), use logit $\ln(p/(1-p))$ for probabilities.
+- **Rule #13 (Automated Code-Rule Checker & Root Pytest Isolation):**
+  - Every repository with Python tests MUST configure `pyproject.toml` or `pytest.ini` with `testpaths = ["tests"]` and `norecursedirs = ["archive", "past_version", ".*"]` so bare `pytest` from the repository root never collects archived legacy files.
+- **Language & Intuitive Pronunciation Rule (Strictly No IPA Symbols):** Write all artifacts in American English; communicate in Spanish. All C-Suite English coaching must strictly avoid IPA symbols and use **Intuitive Spanish-Friendly Respelling** (e.g., `ei-suh-MÉ-trik SÍG-nul ÁR-buh-trazh`) + 1 native linking tip.

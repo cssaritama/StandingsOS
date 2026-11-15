@@ -1,6 +1,10 @@
 """HTTP tests against an isolated in-memory SQLite database."""
 
 import os
+import pytest
+
+pytest.importorskip("fastapi")
+pytest.importorskip("sqlalchemy")
 
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
