@@ -29,7 +29,7 @@ The project combines product design, relational data modeling, deterministic ana
 | **Cloud** | Azure-first deployment architecture with portable Kubernetes boundaries |
 | **Governance** | implemented vs roadmap status, evidence boundaries, abstention and auditable calculations |
 
-**Evidence links:** [Architecture](docs/architecture.md) · [AI-ready data](docs/ai-ready-data.md) · [Context engineering](docs/context-engineering.md) · [Azure architecture](docs/azure-architecture.md) · [Specs](specs/README.md)
+**Evidence links:** [Architecture](docs/architecture.md) · [Context engineering](docs/context-engineering.md) · [Azure architecture](docs/azure-architecture.md) · [Specs](specs/README.md)
 
 > **Visual proof:** the repository now includes a capture checklist in [`docs/visual-evidence.md`](docs/visual-evidence.md). Screenshots and GIFs should be added only from a real running build—never mocked.
 
