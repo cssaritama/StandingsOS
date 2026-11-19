@@ -8,4 +8,4 @@ Flow:
 problem -> spec -> acceptance criteria -> implementation -> tests/evals -> deployment evidence -> feedback
 ```
 
-This is intentionally compatible with human engineers and coding agents: `AGENTS.md` defines repository-wide rules while feature specs define the local contract for a change.
+`CONTRIBUTING.md` defines repository-wide rules while feature specs define the local contract for a change.

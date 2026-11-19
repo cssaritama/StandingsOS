@@ -7,7 +7,7 @@ This document maps claims in the public README to repository evidence.
 | Source-of-truth competition model | domain models, standings engine, tests |
 | AI-ready data contracts | `data/contracts/`, readiness engine |
 | Semantic definitions | `data/semantics/` |
-| Specification-driven development | `specs/`, `AGENTS.md` |
+| Specification-driven development | `specs/`, `CONTRIBUTING.md` |
 | Grounded AI | bounded evidence pack + AI adapter + tests |
 | Transparent forecasting | Elo implementation + forecast API |
 | Docker delivery | Dockerfiles + `compose.yaml` |
