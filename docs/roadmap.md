@@ -20,6 +20,11 @@
 - fixture pagination and filters;
 - browser-level tests;
 - accessible empty/error/loading states review.
+- planned runtime and framework upgrades, each with its own tests: the Node
+  base image from 22 to the current LTS before Node 22 support ends in April
+  2027; Python from 3.12 to a newer release before 3.12 support ends in October
+  2028; Starlette 0.x to 1.x and FastAPI to a release that passes CI. Dependabot
+  proposes patch and minor updates only; major ones are tracked here.
 
 ## 2.2 — data platform evolution
 
